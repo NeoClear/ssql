@@ -11,4 +11,5 @@ public:
     table parse(std::string code);
     table select(std::vector<std::pair<lexer::token, std::string>> tokens, table _table);
     table from(std::vector<std::pair<lexer::token, std::string>> tokens);
+    void print();
 };

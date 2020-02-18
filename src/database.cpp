@@ -12,8 +12,6 @@ void db::insert(std::string name, table _table) {
     tables[name] = _table;
 }
 
-
-
 table db::parse(std::string code) {
     lexer lex(code);
     std::unordered_map<lexer::token, std::vector<std::pair<lexer::token, std::string>>> tokens;
@@ -106,4 +104,9 @@ table db::from(std::vector<std::pair<lexer::token, std::string>> tokens) {
         }
     }
     return ans;
+}
+
+void db::print() {
+    for (const auto& it : tables)
+        std::cout << it.first << std::endl;
 }

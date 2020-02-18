@@ -2,6 +2,7 @@
 #include "src/table.h"
 #include "src/lexer.h"
 #include "src/database.h"
+#include "src/scanner.h"
 
 using namespace std;
 
@@ -23,11 +24,33 @@ int main() {
     // while ((tok = lex.get_tok()).first != lexer::END) {
     //     cout << tok.second << endl;
     // }
-    try {
-        dat.parse("select E1.id n1, E2.ename n2 from Employee E1, Employee E2, Employee E3;").print();
-    } catch (string s) {
-        cout << s << endl;
+
+    while (true) {
+BEGIN:
+        string code;
+        bool first = true;
+        do {
+            cout << (first ? "ssql> " : " ...> ");
+            first = false;
+            code += " " + ssql::read_line();
+            if (code.find(".exit") != code.npos)
+                return 0;
+            if (code.find(".tables") != code.npos) {
+                dat.print();
+                goto BEGIN;
+            }
+        } while (code.find(';') == code.npos);
+        try {
+            dat.parse(code).print();
+        } catch (string s) {
+            cout << s << endl;
+        }
     }
+    // try {
+    //     dat.parse("select E1.id n1, E2.ename n2 from Employee E1, Employee E2, Employee E3;").print();
+    // } catch (string s) {
+    //     cout << s << endl;
+    // }
     
     return 0;
 }
