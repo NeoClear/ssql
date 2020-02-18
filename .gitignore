@@ -1,0 +1,9 @@
+.vscode/
+ssql
+**.cmake
+build/
+**CMakeCache.txt
+**CMakeFiles/
+**Makefile
+**.a
+**.o
